@@ -8,7 +8,7 @@ class ProductDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: AppBarTitle(title: 'ProductDetailsView'),
+        title: AppBarTitle(title: 'Product Details'),
       ),
       body: Container(),
     );

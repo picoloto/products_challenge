@@ -8,7 +8,7 @@ class ProductsFavoritesView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: AppBarTitle(title: 'ProductsFavoritesView'),
+        title: AppBarTitle(title: 'Favorites'),
       ),
       body: Container(),
     );
