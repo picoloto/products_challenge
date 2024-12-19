@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:products_challenge/routes/routes.dart';
-import 'package:products_challenge/shared/widgets/alert_title.dart';
+import 'package:products_challenge/shared/widgets/alert_information_widget.dart';
 
 class ErrorView extends StatelessWidget {
   const ErrorView({super.key});
@@ -14,7 +14,7 @@ class ErrorView extends StatelessWidget {
           alignment: AlignmentDirectional.bottomCenter,
           children: [
             Center(
-              child: AlertInformation(
+              child: AlertInformationWidget(
                 assetPathImage: 'assets/images/error.png',
                 title: 'Something went wrong!',
               ),

@@ -13,8 +13,13 @@ final router = GoRouter(
       builder: (context, state) => ProductsView(),
     ),
     GoRoute(
-      path: Routes.productDetailsView,
-      builder: (context, state) => ProductDetailsView(),
+      path: '${Routes.productDetailsView}/:productId',
+      builder: (context, state) {
+        // TODO: tratar erros
+        final int productId =
+            int.tryParse(state.pathParameters['productId']!) ?? 0;
+        return ProductDetailsView(productId: productId);
+      },
     ),
     GoRoute(
       path: Routes.productsFavoritesView,

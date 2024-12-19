@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
-class AlertInformation extends StatelessWidget {
+class AlertInformationWidget extends StatelessWidget {
   final String title;
   final String assetPathImage;
 
-  const AlertInformation(
-      {super.key, required this.assetPathImage, required this.title});
+  const AlertInformationWidget({
+    super.key,
+    required this.assetPathImage,
+    required this.title,
+  });
 
   @override
   Widget build(BuildContext context) {

@@ -8,6 +8,11 @@ final class CustomTheme {
       fontFamily: GoogleFonts.poppins().fontFamily,
       appBarTheme: AppBarTheme(
         color: neutralLighter,
+        titleTextStyle: TextStyle(
+          fontWeight: FontWeight.w600,
+          color: CustomTheme.neutral,
+          fontSize: 20,
+        ),
       ),
       scaffoldBackgroundColor: neutralLighter,
       colorSchemeSeed: primary,
@@ -21,9 +26,12 @@ final class CustomTheme {
   static const error = Color(0xFFFF0000);
 
   static const neutral = Color(0xff37474F);
+
   static const neutral80 = Color(0xCC37474F);
   static const neutral65 = Color(0xA637474F);
 
   static const neutralLighter = Colors.white;
+
+  static const neutralDark = Color(0xff3E3E3E);
   static const neutralDarker = Colors.black;
 }

@@ -4,7 +4,7 @@ import 'package:products_challenge/service/service_locator.dart';
 import 'package:products_challenge/shared/theme/custom_theme.dart';
 
 void main() {
-  ServiceLocator.setup();
+  ServiceLocator.setupServices();
   runApp(const MyApp());
 }
 
