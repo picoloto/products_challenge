@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:products_challenge/shared/theme/custom_theme.dart';
 
 class AppBarTitle extends StatelessWidget {
   final String title;
@@ -11,7 +12,7 @@ class AppBarTitle extends StatelessWidget {
       title,
       style: TextStyle(
         fontWeight: FontWeight.w600,
-        color: Color(0xFF37474F),
+        color: CustomTheme.neutral,
         fontSize: 20,
       ),
     );

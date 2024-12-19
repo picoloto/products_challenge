@@ -43,6 +43,8 @@ dependencies:
   dio: ^5.7.0
   go_router: ^14.6.2
   google_fonts: ^6.2.1
+  mobx_codegen: ^2.7.0
+  flutter_mobx: ^2.3.0
 
 dev_dependencies:
   flutter_test:
@@ -71,6 +73,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/error.png
+    - assets/images/empty.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

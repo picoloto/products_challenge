@@ -2,8 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:products_challenge/model/rating/rating.dart';
 
-part 'product.freezed.dart';
-part 'product.g.dart';
+part 'product_model.freezed.dart';
+part 'product_model.g.dart';
 
 @freezed
 abstract class Product with _$Product {

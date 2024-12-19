@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:products_challenge/shared/constants/routes.dart';
+import 'package:products_challenge/routes/routes.dart';
+import 'package:products_challenge/shared/widgets/alert_title.dart';
 
 class ErrorView extends StatelessWidget {
   const ErrorView({super.key});
@@ -13,28 +14,13 @@ class ErrorView extends StatelessWidget {
           alignment: AlignmentDirectional.bottomCenter,
           children: [
             Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                spacing: 20,
-                children: [
-                  Image.asset(
-                    'assets/images/error.png',
-                    width: 160,
-                    height: 160,
-                  ),
-                  Text(
-                    'Something went wrong!',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16,
-                      color: Color(0xff7d878c),
-                    ),
-                  )
-                ],
+              child: AlertInformation(
+                assetPathImage: 'assets/images/error.png',
+                title: 'Something went wrong!',
               ),
             ),
             TextButton(
-              onPressed: () => context.go(productsViewRoute),
+              onPressed: () => context.go(Routes.productsView),
               child: Text(
                 'Go Home',
                 style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),

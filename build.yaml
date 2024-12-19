@@ -1,0 +1,9 @@
+targets:
+  $default:
+    builders:
+      mobx_codegen|mobx_generator:
+        generate_for:
+          - "lib/**_store.dart"
+      freezed|freezed:
+        generate_for:
+          - "lib/**_model.dart"
