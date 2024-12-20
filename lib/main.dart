@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:products_challenge/routes/router.dart';
-import 'package:products_challenge/service/service_locator.dart';
 import 'package:products_challenge/shared/theme/custom_theme.dart';
+import 'package:products_challenge/shared/utils/get_it_locator.dart';
 
 void main() {
-  ServiceLocator.setupServices();
+  initializeApp();
   runApp(const MyApp());
+}
+
+void initializeApp() {
+  WidgetsFlutterBinding.ensureInitialized();
+  GetItLocator.setup();
 }
 
 class MyApp extends StatelessWidget {

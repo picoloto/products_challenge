@@ -8,6 +8,7 @@ class LoadingProductsState extends ProductsState {}
 
 class SuccessProductsState extends ProductsState {
   final List<Product> products;
+
   SuccessProductsState(this.products);
 }
 

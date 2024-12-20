@@ -3,13 +3,18 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
 import 'package:products_challenge/routes/routes.dart';
 import 'package:products_challenge/shared/theme/custom_theme.dart';
+import 'package:products_challenge/shared/utils/get_it_locator.dart';
 import 'package:products_challenge/shared/widgets/alert_information_widget.dart';
+import 'package:products_challenge/shared/widgets/favorite_widget.dart';
 import 'package:products_challenge/shared/widgets/loading_widget.dart';
 import 'package:products_challenge/shared/widgets/product_tile_widget.dart';
+import 'package:products_challenge/shared/widgets/separator_widget.dart';
 import 'package:products_challenge/view_model/products/products_state.dart';
 import 'package:products_challenge/view_model/products/products_store.dart';
+import 'package:products_challenge/view_model/products_local/products_local_store.dart';
 
-final productsStore = ProductsStore();
+final productsStore = getIt.get<ProductsStore>();
+final productsLocalStore = getIt.get<ProductsLocalStore>();
 
 class ProductsView extends StatefulWidget {
   const ProductsView({super.key});
@@ -22,6 +27,7 @@ class _ProductsViewState extends State<ProductsView> {
   @override
   void initState() {
     productsStore.findProducts();
+    productsLocalStore.findAllFavorites();
     super.initState();
   }
 
@@ -44,7 +50,7 @@ class _ProductsViewState extends State<ProductsView> {
                 GoRouter.of(context).push(Routes.productsFavoritesView),
             icon: Icon(
               Icons.favorite_border,
-              color: CustomTheme.neutralDarker,
+              color: AppColors.neutralDarker,
             ),
           )
         ],
@@ -108,7 +114,7 @@ class _SearchWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             borderSide: const BorderSide(color: Colors.transparent),
           ),
-          fillColor: Color(0xFFF0F1F2),
+          fillColor: AppColors.neutralLight,
         ),
       ),
     );
@@ -129,35 +135,13 @@ class _SuccessWidget extends StatelessWidget {
         return InkWell(
           onTap: () => GoRouter.of(context)
               .push('${Routes.productDetailsView}/${product.id}'),
-          child: Padding(
-            padding: const EdgeInsets.all(18),
-            child: ProductTileWidget(
-              product: product,
-              favoriteWidget: _FavoriteWidget(),
-            ),
+          child: ProductTileWidget(
+            product: product,
+            favoriteWidget: FavoriteWidget(product: product),
           ),
         );
       },
-      separatorBuilder: (_, __) {
-        return Divider(
-          color: Color(0xFFF0F0F0),
-        );
-      },
-    );
-  }
-}
-
-class _FavoriteWidget extends StatelessWidget {
-  const _FavoriteWidget();
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      onPressed: () {},
-      icon: Icon(
-        Icons.favorite_border,
-        color: CustomTheme.neutralDarker,
-      ),
+      separatorBuilder: (_, __) => SeparatorWidget(),
     );
   }
 }

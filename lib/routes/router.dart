@@ -15,7 +15,6 @@ final router = GoRouter(
     GoRoute(
       path: '${Routes.productDetailsView}/:productId',
       builder: (context, state) {
-        // TODO: tratar erros
         final int productId =
             int.tryParse(state.pathParameters['productId']!) ?? 0;
         return ProductDetailsView(productId: productId);

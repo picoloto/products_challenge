@@ -17,7 +17,7 @@ class IconTextWidget extends StatelessWidget {
         Icon(
           icon,
           size: 24,
-          color: CustomTheme.neutralDark,
+          color: AppColors.neutralDark,
         ),
         Expanded(
           child: Text(
@@ -25,7 +25,7 @@ class IconTextWidget extends StatelessWidget {
             style: TextStyle(
               fontWeight: FontWeight.w500,
               fontSize: 16,
-              color: CustomTheme.neutralDark,
+              color: AppColors.neutralDark,
             ),
           ),
         ),

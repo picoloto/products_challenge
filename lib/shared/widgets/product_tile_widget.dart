@@ -16,53 +16,56 @@ class ProductTileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      spacing: 18,
-      children: [
-        ImageNetworkWidget(
-          imageUrl: product.image,
-          width: 126,
-          height: 126,
-        ),
-        Expanded(
-          child: Column(
-            spacing: 9,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                product.title,
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16,
-                  color: CustomTheme.neutral,
-                ),
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  RateWidget(
-                    rate: product.rating.rate,
-                    reviewCount: product.rating.count,
-                  ),
-                  Visibility(
-                    visible: favoriteWidget != null,
-                    child: favoriteWidget ?? SizedBox.shrink(),
-                  ),
-                ],
-              ),
-              Text(
-                '\$${product.price.toStringAsFixed(2)}',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 20,
-                  color: CustomTheme.attention,
-                ),
-              )
-            ],
+    return Padding(
+      padding: const EdgeInsets.all(18),
+      child: Row(
+        spacing: 18,
+        children: [
+          ImageNetworkWidget(
+            imageUrl: product.image,
+            width: 126,
+            height: 126,
           ),
-        )
-      ],
+          Expanded(
+            child: Column(
+              spacing: 9,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  product.title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 16,
+                    color: AppColors.neutral,
+                  ),
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    RateWidget(
+                      rate: product.rating.rate,
+                      reviewCount: product.rating.count,
+                    ),
+                    Visibility(
+                      visible: favoriteWidget != null,
+                      child: favoriteWidget ?? SizedBox.shrink(),
+                    ),
+                  ],
+                ),
+                Text(
+                  '\$${product.price.toStringAsFixed(2)}',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 20,
+                    color: AppColors.attention,
+                  ),
+                )
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 }

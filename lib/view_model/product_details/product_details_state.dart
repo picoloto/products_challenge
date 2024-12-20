@@ -6,6 +6,7 @@ class LoadingProductDetailsState extends ProductDetailsState {}
 
 class SuccessProductDetailsState extends ProductDetailsState {
   final Product product;
+
   SuccessProductDetailsState(this.product);
 }
 

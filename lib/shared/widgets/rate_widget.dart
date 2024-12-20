@@ -8,11 +8,11 @@ class RateWidget extends StatelessWidget {
   const RateWidget({super.key, required this.rate, required this.reviewCount});
 
   String _getReviewWord() {
-    if (reviewCount > 1 || reviewCount == 0) {
-      return 'reviews';
+    if (reviewCount == 1) {
+      return 'review';
     }
 
-    return 'review';
+    return 'reviews';
   }
 
   @override
@@ -23,15 +23,17 @@ class RateWidget extends StatelessWidget {
         children: [
           Icon(
             Icons.star,
-            color: CustomTheme.attentionLighter,
+            color: AppColors.attentionLighter,
             size: 22,
           ),
-          Text(
-            '${rate.toStringAsFixed(1)} (${reviewCount.toString()} ${_getReviewWord()})',
-            style: TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 14,
-              color: CustomTheme.neutral65,
+          Expanded(
+            child: Text(
+              '${rate.toStringAsFixed(1)} (${reviewCount.toString()} ${_getReviewWord()})',
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 14,
+                color: AppColors.neutral65,
+              ),
             ),
           ),
         ],

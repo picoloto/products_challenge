@@ -29,44 +29,44 @@ mixin _$ProductsStore on ProductsStoreBase, Store {
       ActionController(name: 'ProductsStoreBase', context: context);
 
   @override
-  void _loadState() {
+  void _setLoadingState() {
     final _$actionInfo = _$ProductsStoreBaseActionController.startAction(
-        name: 'ProductsStoreBase._loadState');
+        name: 'ProductsStoreBase._setLoadingState');
     try {
-      return super._loadState();
+      return super._setLoadingState();
     } finally {
       _$ProductsStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void _successState(List<Product> products) {
+  void _setSuccessState(List<Product> products) {
     final _$actionInfo = _$ProductsStoreBaseActionController.startAction(
-        name: 'ProductsStoreBase._successState');
+        name: 'ProductsStoreBase._setSuccessState');
     try {
-      return super._successState(products);
+      return super._setSuccessState(products);
     } finally {
       _$ProductsStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void _errorState(Exception e) {
+  void _setErrorState(Exception e) {
     final _$actionInfo = _$ProductsStoreBaseActionController.startAction(
-        name: 'ProductsStoreBase._errorState');
+        name: 'ProductsStoreBase._setErrorState');
     try {
-      return super._errorState(e);
+      return super._setErrorState(e);
     } finally {
       _$ProductsStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void _emptyState() {
+  void _setEmptyState() {
     final _$actionInfo = _$ProductsStoreBaseActionController.startAction(
-        name: 'ProductsStoreBase._emptyState');
+        name: 'ProductsStoreBase._setEmptyState');
     try {
-      return super._emptyState();
+      return super._setEmptyState();
     } finally {
       _$ProductsStoreBaseActionController.endAction(_$actionInfo);
     }

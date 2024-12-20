@@ -8,9 +8,9 @@ part of 'product_details_store.dart';
 
 // ignore_for_file: non_constant_identifier_names, unnecessary_brace_in_string_interps, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic, no_leading_underscores_for_local_identifiers
 
-mixin _$ProductsDetailsStore on ProductsDetailsStoreBase, Store {
+mixin _$ProductDetailsStore on ProductDetailsStoreBase, Store {
   late final _$stateAtom =
-      Atom(name: 'ProductsDetailsStoreBase.state', context: context);
+      Atom(name: 'ProductDetailsStoreBase.state', context: context);
 
   @override
   ProductDetailsState get state {
@@ -25,39 +25,39 @@ mixin _$ProductsDetailsStore on ProductsDetailsStoreBase, Store {
     });
   }
 
-  late final _$ProductsDetailsStoreBaseActionController =
-      ActionController(name: 'ProductsDetailsStoreBase', context: context);
+  late final _$ProductDetailsStoreBaseActionController =
+      ActionController(name: 'ProductDetailsStoreBase', context: context);
 
   @override
-  void _loadState() {
-    final _$actionInfo = _$ProductsDetailsStoreBaseActionController.startAction(
-        name: 'ProductsDetailsStoreBase._loadState');
+  void _setLoadingState() {
+    final _$actionInfo = _$ProductDetailsStoreBaseActionController.startAction(
+        name: 'ProductDetailsStoreBase._setLoadingState');
     try {
-      return super._loadState();
+      return super._setLoadingState();
     } finally {
-      _$ProductsDetailsStoreBaseActionController.endAction(_$actionInfo);
+      _$ProductDetailsStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void _successState(Product product) {
-    final _$actionInfo = _$ProductsDetailsStoreBaseActionController.startAction(
-        name: 'ProductsDetailsStoreBase._successState');
+  void _setSuccessState(Product product) {
+    final _$actionInfo = _$ProductDetailsStoreBaseActionController.startAction(
+        name: 'ProductDetailsStoreBase._setSuccessState');
     try {
-      return super._successState(product);
+      return super._setSuccessState(product);
     } finally {
-      _$ProductsDetailsStoreBaseActionController.endAction(_$actionInfo);
+      _$ProductDetailsStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void _errorState(Exception e) {
-    final _$actionInfo = _$ProductsDetailsStoreBaseActionController.startAction(
-        name: 'ProductsDetailsStoreBase._errorState');
+  void _setErrorState(Exception e) {
+    final _$actionInfo = _$ProductDetailsStoreBaseActionController.startAction(
+        name: 'ProductDetailsStoreBase._setErrorState');
     try {
-      return super._errorState(e);
+      return super._setErrorState(e);
     } finally {
-      _$ProductsDetailsStoreBaseActionController.endAction(_$actionInfo);
+      _$ProductDetailsStoreBaseActionController.endAction(_$actionInfo);
     }
   }
 
