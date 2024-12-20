@@ -9,9 +9,9 @@ part 'products_local_store.g.dart';
 class ProductsLocalStore = ProductsLocalStoreBase with _$ProductsLocalStore;
 
 abstract class ProductsLocalStoreBase with Store {
-  final _service = getIt.get<ProductLocalService>();
+  ProductLocalService service = getIt.get<ProductLocalService>();
 
-  List<Product> _products = [];
+  List<Product> products = [];
 
   @observable
   ProductsLocalState state = LoadingProductsLocalState();
@@ -29,21 +29,21 @@ abstract class ProductsLocalStoreBase with Store {
   Future<void> _fetchAndUpdateState(
       Future<List<Product>> Function() fetcher) async {
     try {
-      _products = await fetcher();
-      _setSuccessState(_products);
+      products = await fetcher();
+      _setSuccessState(products);
     } on Exception catch (e) {
       _setErrorState(e);
     }
   }
 
   Future<void> addProductFavorite(Product product) async {
-    await _fetchAndUpdateState(() => _service.toggleProductFavorite(product));
+    await _fetchAndUpdateState(() => service.toggleProductFavorite(product));
   }
 
   Future<void> findAllFavorites() async {
     _setLoadingState();
-    await _fetchAndUpdateState(() => _service.findAllFavorites());
+    await _fetchAndUpdateState(() => service.findAllFavorites());
   }
 
-  bool isFavorite(Product product) => _products.contains(product);
+  bool isFavorite(Product product) => products.contains(product);
 }

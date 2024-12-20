@@ -12,8 +12,8 @@ abstract interface class RestServiceInterface {
 }
 
 class RestService {
-  final String baseUrl = EnvironmentDev.restApiUrl;
-  final dio = getIt.get<Dio>();
+  String baseUrl = EnvironmentDev.restApiUrl;
+  Dio dio = getIt.get<Dio>();
 
   Future<T> fetchData<T>(
     String path,

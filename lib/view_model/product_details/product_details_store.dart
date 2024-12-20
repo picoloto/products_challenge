@@ -9,7 +9,7 @@ part 'product_details_store.g.dart';
 class ProductDetailsStore = ProductDetailsStoreBase with _$ProductDetailsStore;
 
 abstract class ProductDetailsStoreBase with Store {
-  final ProductService _service = getIt.get<ProductService>();
+  ProductService service = getIt.get<ProductService>();
 
   @observable
   ProductDetailsState state = LoadingProductDetailsState();
@@ -28,7 +28,7 @@ abstract class ProductDetailsStoreBase with Store {
     _setLoadingState();
 
     try {
-      final product = await _service.findById(id);
+      final product = await service.findById(id);
       _setSuccessState(product);
     } on Exception catch (e, _) {
       _setErrorState(e);

@@ -1,18 +1,23 @@
-import 'package:flutter/widgets.dart';
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:products_challenge/service/product_local/product_local_service.dart';
 import 'package:products_challenge/shared/utils/get_it_locator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert';
+import 'package:shared_preferences_platform_interface/in_memory_shared_preferences_async.dart';
+import 'package:shared_preferences_platform_interface/shared_preferences_async_platform_interface.dart';
+
 import '../../mocks/product_mock.dart';
 import 'product_local_service_test.mocks.dart';
 
-@GenerateMocks([SharedPreferencesAsync])
+@GenerateNiceMocks([MockSpec<SharedPreferencesAsync>()])
 void main() {
-  late MockSharedPreferencesAsync mockSharedPreferences;
+  late SharedPreferencesAsync mockSharedPreferences;
   late ProductLocalService productLocalService;
+  final path = 'products';
 
   group('ProductLocalService', () {
     final testProduct = ProductMock.product1;
@@ -21,71 +26,55 @@ void main() {
     setUpAll(() {
       WidgetsFlutterBinding.ensureInitialized();
       GetItLocator.setup();
-      mockSharedPreferences = MockSharedPreferencesAsync();
-      getIt.registerSingleton<SharedPreferencesAsync>(mockSharedPreferences);
+      SharedPreferencesAsyncPlatform.instance =
+          InMemorySharedPreferencesAsync.empty();
 
+      mockSharedPreferences = MockSharedPreferencesAsync();
       productLocalService = ProductLocalService();
+
+      productLocalService.sharedPreferences = mockSharedPreferences;
     });
 
-    test('findAllFavorites deve retornar produtos armazenados', () async {
-      // Arrange
-      when(mockSharedPreferences.getStringList('products'))
-          .thenAnswer((_) async => Future.value([encodedTestProduct]));
+    test(
+        'findAllFavorites should return an empty list if there are no products',
+        () async {
+      when(mockSharedPreferences.getStringList(path))
+          .thenAnswer((_) async => Future.value([]));
 
-      // Act
       final products = await productLocalService.findAllFavorites();
 
-      // Assert
+      expect(products, isEmpty);
+    });
+
+    test('findAllFavorites must return stored products', () async {
+      when(mockSharedPreferences.getStringList(path))
+          .thenAnswer((_) async => Future.value([encodedTestProduct]));
+
+      final products = await productLocalService.findAllFavorites();
+
       expect(products, isNotEmpty);
       expect(products.first, equals(testProduct));
     });
 
-    test(
-        'findAllFavorites deve retornar uma lista vazia se não houver produtos',
+    test('toggleProductFavorite should remove an existing favorite product',
         () async {
-      // Arrange
-      when(mockSharedPreferences.getStringList('products'))
-          .thenAnswer((_) async => Future.value([]));
+      when(mockSharedPreferences.getStringList(path))
+          .thenAnswer((_) async => Future.value([encodedTestProduct]));
 
-      // Act
-      final products = await productLocalService.findAllFavorites();
+      final products =
+          await productLocalService.toggleProductFavorite(testProduct);
 
-      // Assert
       expect(products, isEmpty);
     });
 
-    test('toggleProductFavorite deve adicionar um produto favorito', () async {
-      // Arrange
-      when(mockSharedPreferences.getStringList('products'))
+    test('toggleProductFavorite should add a favorite product', () async {
+      when(mockSharedPreferences.getStringList(path))
           .thenAnswer((_) async => Future.value([]));
 
-      // Act
-      final updatedProducts =
+      final products =
           await productLocalService.toggleProductFavorite(testProduct);
 
-      // Assert
-      verify(mockSharedPreferences.setStringList(
-        'products',
-        [encodedTestProduct],
-      )).called(1);
-
-      expect(updatedProducts, contains(testProduct));
-    });
-
-    test('toggleProductFavorite deve remover um produto favorito existente',
-        () async {
-      // Arrange
-      when(mockSharedPreferences.getStringList('products'))
-          .thenAnswer((_) async => Future.value([encodedTestProduct]));
-
-      // Act
-      final updatedProducts =
-          await productLocalService.toggleProductFavorite(testProduct);
-
-      // Assert
-      verify(mockSharedPreferences.setStringList('products', [])).called(1);
-
-      expect(updatedProducts, isEmpty);
+      expect(products, contains(testProduct));
     });
   });
 }

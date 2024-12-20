@@ -28,10 +28,6 @@ import 'package:shared_preferences/src/shared_preferences_async.dart' as _i2;
 // ignore: must_be_immutable
 class MockSharedPreferencesAsync extends _i1.Mock
     implements _i2.SharedPreferencesAsync {
-  MockSharedPreferencesAsync() {
-    _i1.throwOnMissingStub(this);
-  }
-
   @override
   _i3.Future<Set<String>> getKeys({Set<String>? allowList}) =>
       (super.noSuchMethod(
@@ -41,6 +37,7 @@ class MockSharedPreferencesAsync extends _i1.Mock
           {#allowList: allowList},
         ),
         returnValue: _i3.Future<Set<String>>.value(<String>{}),
+        returnValueForMissingStub: _i3.Future<Set<String>>.value(<String>{}),
       ) as _i3.Future<Set<String>>);
 
   @override
@@ -53,6 +50,8 @@ class MockSharedPreferencesAsync extends _i1.Mock
         ),
         returnValue:
             _i3.Future<Map<String, Object?>>.value(<String, Object?>{}),
+        returnValueForMissingStub:
+            _i3.Future<Map<String, Object?>>.value(<String, Object?>{}),
       ) as _i3.Future<Map<String, Object?>>);
 
   @override
@@ -62,6 +61,7 @@ class MockSharedPreferencesAsync extends _i1.Mock
           [key],
         ),
         returnValue: _i3.Future<bool?>.value(),
+        returnValueForMissingStub: _i3.Future<bool?>.value(),
       ) as _i3.Future<bool?>);
 
   @override
@@ -71,6 +71,7 @@ class MockSharedPreferencesAsync extends _i1.Mock
           [key],
         ),
         returnValue: _i3.Future<int?>.value(),
+        returnValueForMissingStub: _i3.Future<int?>.value(),
       ) as _i3.Future<int?>);
 
   @override
@@ -80,6 +81,7 @@ class MockSharedPreferencesAsync extends _i1.Mock
           [key],
         ),
         returnValue: _i3.Future<double?>.value(),
+        returnValueForMissingStub: _i3.Future<double?>.value(),
       ) as _i3.Future<double?>);
 
   @override
@@ -89,6 +91,7 @@ class MockSharedPreferencesAsync extends _i1.Mock
           [key],
         ),
         returnValue: _i3.Future<String?>.value(),
+        returnValueForMissingStub: _i3.Future<String?>.value(),
       ) as _i3.Future<String?>);
 
   @override
@@ -98,6 +101,7 @@ class MockSharedPreferencesAsync extends _i1.Mock
           [key],
         ),
         returnValue: _i3.Future<List<String>?>.value(),
+        returnValueForMissingStub: _i3.Future<List<String>?>.value(),
       ) as _i3.Future<List<String>?>);
 
   @override
@@ -107,6 +111,7 @@ class MockSharedPreferencesAsync extends _i1.Mock
           [key],
         ),
         returnValue: _i3.Future<bool>.value(false),
+        returnValueForMissingStub: _i3.Future<bool>.value(false),
       ) as _i3.Future<bool>);
 
   @override

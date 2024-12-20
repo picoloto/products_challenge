@@ -45,6 +45,7 @@ dependencies:
   google_fonts: ^6.2.1
   mobx_codegen: ^2.7.0
   flutter_mobx: ^2.3.0
+  shared_preferences_platform_interface: ^2.4.1
 
 dev_dependencies:
   flutter_test:

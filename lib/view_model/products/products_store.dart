@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:mobx/mobx.dart';
 import 'package:products_challenge/model/product/product_model.dart';
-import 'package:products_challenge/shared/utils/debouncer.dart';
 import 'package:products_challenge/service/product/product_service.dart';
+import 'package:products_challenge/shared/utils/debouncer.dart';
 import 'package:products_challenge/shared/utils/get_it_locator.dart';
 import 'package:products_challenge/view_model/products/products_state.dart';
 
@@ -12,10 +12,10 @@ part 'products_store.g.dart';
 class ProductsStore = ProductsStoreBase with _$ProductsStore;
 
 abstract class ProductsStoreBase with Store {
-  final _service = getIt.get<ProductService>();
-  final _debouncer = Debouncer(milliseconds: 600);
+  ProductService service = getIt.get<ProductService>();
+  Debouncer debouncer = Debouncer(milliseconds: 600);
 
-  List<Product> _products = [];
+  List<Product> products = [];
 
   @observable
   ProductsState state = EmptyProductsState();
@@ -38,11 +38,11 @@ abstract class ProductsStoreBase with Store {
     _setLoadingState();
 
     try {
-      _products = await fetcher();
-      if (_products.isEmpty) {
+      products = await fetcher();
+      if (products.isEmpty) {
         _setEmptyState();
       } else {
-        _setSuccessState(_products);
+        _setSuccessState(products);
       }
     } on Exception catch (e) {
       _setErrorState(e);
@@ -50,14 +50,14 @@ abstract class ProductsStoreBase with Store {
   }
 
   Future<void> findProducts() async {
-    await _fetchAndUpdateState(() => _service.findAll());
+    await _fetchAndUpdateState(() => service.findAll());
   }
 
   Future<void> findProductsByTitle(String title) async {
     _setLoadingState();
 
-    _debouncer.call(() {
-      List<Product> searchedProducts = _products
+    debouncer.call(() {
+      List<Product> searchedProducts = products
           .where((product) =>
               product.title.toLowerCase().contains(title.toLowerCase()))
           .toList();
