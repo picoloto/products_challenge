@@ -1,6 +1,6 @@
 import 'package:mobx/mobx.dart';
 import 'package:products_challenge/model/product/product_model.dart';
-import 'package:products_challenge/service/product/product_local_service.dart';
+import 'package:products_challenge/service/product_local/product_local_service.dart';
 import 'package:products_challenge/shared/utils/get_it_locator.dart';
 import 'package:products_challenge/view_model/products_local/products_local_state.dart';
 

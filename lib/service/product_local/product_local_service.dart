@@ -6,9 +6,9 @@ import 'package:products_challenge/shared/utils/get_it_locator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProductLocalService {
-  final String path = 'products';
+  String path = 'products';
 
-  final SharedPreferencesAsync sharedPreferences =
+  SharedPreferencesAsync sharedPreferences =
       getIt.get<SharedPreferencesAsync>();
 
   Future<List<Product>> _getStoredProducts() async {
