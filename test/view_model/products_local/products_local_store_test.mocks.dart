@@ -43,28 +43,6 @@ class _FakeSharedPreferencesAsync_0 extends _i1.SmartFake
 class MockProductLocalService extends _i1.Mock
     implements _i3.ProductLocalService {
   @override
-  String get path => (super.noSuchMethod(
-        Invocation.getter(#path),
-        returnValue: _i4.dummyValue<String>(
-          this,
-          Invocation.getter(#path),
-        ),
-        returnValueForMissingStub: _i4.dummyValue<String>(
-          this,
-          Invocation.getter(#path),
-        ),
-      ) as String);
-
-  @override
-  set path(String? _path) => super.noSuchMethod(
-        Invocation.setter(
-          #path,
-          _path,
-        ),
-        returnValueForMissingStub: null,
-      );
-
-  @override
   _i2.SharedPreferencesAsync get sharedPreferences => (super.noSuchMethod(
         Invocation.getter(#sharedPreferences),
         returnValue: _FakeSharedPreferencesAsync_0(
@@ -83,6 +61,28 @@ class MockProductLocalService extends _i1.Mock
         Invocation.setter(
           #sharedPreferences,
           _sharedPreferences,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  String get path => (super.noSuchMethod(
+        Invocation.getter(#path),
+        returnValue: _i4.dummyValue<String>(
+          this,
+          Invocation.getter(#path),
+        ),
+        returnValueForMissingStub: _i4.dummyValue<String>(
+          this,
+          Invocation.getter(#path),
+        ),
+      ) as String);
+
+  @override
+  set path(String? _path) => super.noSuchMethod(
+        Invocation.setter(
+          #path,
+          _path,
         ),
         returnValueForMissingStub: null,
       );

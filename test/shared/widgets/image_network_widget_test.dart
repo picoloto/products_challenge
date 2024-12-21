@@ -11,20 +11,20 @@ void main() {
     final double width = 126;
     final double height = 126;
 
-    final Widget imageNetworkWidget = MaterialApp(
-      home: Scaffold(
-        body: ImageNetworkWidget(
-          imageUrl: imageUrl,
-          width: width,
-          height: height,
-        ),
-      ),
-    );
+    Widget getWidget() => MaterialApp(
+          home: Scaffold(
+            body: ImageNetworkWidget(
+              imageUrl: imageUrl,
+              width: width,
+              height: height,
+            ),
+          ),
+        );
 
     testWidgets('Should display the correct product image',
         (WidgetTester tester) async {
       provideMockedNetworkImages(() async {
-        await tester.pumpWidget(imageNetworkWidget);
+        await tester.pumpWidget(getWidget());
 
         final finder = find.byType(ImageNetworkWidget);
         expect(finder, findsOneWidget);
@@ -37,7 +37,7 @@ void main() {
     testWidgets('Should display the sized box with correct size',
         (WidgetTester tester) async {
       provideMockedNetworkImages(() async {
-        await tester.pumpWidget(imageNetworkWidget);
+        await tester.pumpWidget(getWidget());
 
         final finder = find.byType(SizedBox);
         expect(finder, findsOneWidget);

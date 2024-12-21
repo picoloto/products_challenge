@@ -15,20 +15,20 @@ import 'rest_service_test.mocks.dart';
 @GenerateNiceMocks([MockSpec<Dio>()])
 void main() {
   late RestService restService;
-  late MockDio dio;
+  late MockDio mockDio;
 
   setUpAll(() {
     WidgetsFlutterBinding.ensureInitialized();
     GetItLocator.setup();
     restService = RestService();
-    dio = MockDio();
+    mockDio = MockDio();
 
-    restService.dio = dio;
+    restService.dio = mockDio;
   });
 
   group('RestService', () {
     test('findAll should return a list of products', () async {
-      when(dio.get(any)).thenAnswer((_) async => Future.value(Response(
+      when(mockDio.get(any)).thenAnswer((_) async => Future.value(Response(
           requestOptions: RequestOptions(),
           data: jsonDecode(jsonEncode(ProductMock.product1)))));
 

@@ -5,15 +5,15 @@ import 'package:products_challenge/shared/widgets/separator_widget.dart';
 
 void main() {
   group('SeparatorWidget', () {
-    Widget iconTextWidget = MaterialApp(
-      home: Scaffold(
-        body: SeparatorWidget(),
-      ),
-    );
+    Widget getWidget() => MaterialApp(
+          home: Scaffold(
+            body: SeparatorWidget(),
+          ),
+        );
 
     testWidgets('Should display the divider with the correct style',
         (WidgetTester tester) async {
-      await tester.pumpWidget(iconTextWidget);
+      await tester.pumpWidget(getWidget());
 
       final finder = find.byType(Divider);
       expect(finder, findsOneWidget);

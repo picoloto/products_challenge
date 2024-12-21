@@ -9,18 +9,19 @@ void main() {
   group('IconTextWidget', () {
     final IconData icon = Icons.sort;
     final String text = ProductMock.product1.category;
-    final Widget iconTextWidget = MaterialApp(
-      home: Scaffold(
-        body: IconTextWidget(
-          icon: icon,
-          text: text,
-        ),
-      ),
-    );
+
+    Widget getWidget() => MaterialApp(
+          home: Scaffold(
+            body: IconTextWidget(
+              icon: icon,
+              text: text,
+            ),
+          ),
+        );
 
     testWidgets('Should display the icon with the iconData',
         (WidgetTester tester) async {
-      await tester.pumpWidget(iconTextWidget);
+      await tester.pumpWidget(getWidget());
 
       final finder = find.byType(Icon);
       expect(finder, findsOneWidget);
@@ -32,7 +33,7 @@ void main() {
 
     testWidgets('Should display the icon with the correct style',
         (WidgetTester tester) async {
-      await tester.pumpWidget(iconTextWidget);
+      await tester.pumpWidget(getWidget());
 
       final finder = find.byType(Icon);
       expect(finder, findsOneWidget);
@@ -44,7 +45,7 @@ void main() {
 
     testWidgets('Should display the text with the correct style',
         (WidgetTester tester) async {
-      await tester.pumpWidget(iconTextWidget);
+      await tester.pumpWidget(getWidget());
 
       final finder = find.byType(Text);
       expect(finder, findsOneWidget);

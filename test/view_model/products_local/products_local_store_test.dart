@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart' as mockito;
+import 'package:mockito/mockito.dart';
 import 'package:products_challenge/service/product_local/product_local_service.dart';
 import 'package:products_challenge/shared/utils/get_it_locator.dart';
 import 'package:products_challenge/view_model/products_local/products_local_state.dart';
@@ -37,11 +37,9 @@ void main() {
         () async {
       final product = ProductMock.product1;
 
-      mockito
-          .when(mockProductLocalService.toggleProductFavorite(product))
-          .thenAnswer(
-            (_) async => [product],
-          );
+      when(mockProductLocalService.toggleProductFavorite(product)).thenAnswer(
+        (_) async => [product],
+      );
 
       await productsLocalStore.addProductFavorite(product);
 
@@ -56,8 +54,7 @@ void main() {
         () async {
       final product = ProductMock.product1;
 
-      mockito
-          .when(mockProductLocalService.toggleProductFavorite(product))
+      when(mockProductLocalService.toggleProductFavorite(product))
           .thenThrow(Exception('Error adding favorite'));
 
       await productsLocalStore.addProductFavorite(product);
@@ -72,8 +69,7 @@ void main() {
         () async {
       final products = ProductMock.products;
 
-      mockito
-          .when(mockProductLocalService.findAllFavorites())
+      when(mockProductLocalService.findAllFavorites())
           .thenAnswer((_) async => products);
       await productsLocalStore.findAllFavorites();
 
@@ -86,8 +82,7 @@ void main() {
     test(
         'Should change to ErrorProductsLocalState if an exception occurs when loading bookmarks',
         () async {
-      mockito
-          .when(mockProductLocalService.findAllFavorites())
+      when(mockProductLocalService.findAllFavorites())
           .thenThrow(Exception('Error loading favorites'));
       await productsLocalStore.findAllFavorites();
 

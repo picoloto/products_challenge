@@ -1,27 +1,5 @@
 // coverage:ignore-file
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-
-final class CustomTheme {
-  static ThemeData themeData() {
-    return ThemeData(
-      useMaterial3: true,
-      fontFamily: GoogleFonts.poppins().fontFamily,
-      appBarTheme: AppBarTheme(
-        color: AppColors.neutralLighter,
-        titleTextStyle: TextStyle(
-          fontWeight: FontWeight.w600,
-          color: AppColors.neutral,
-          fontSize: 20,
-          fontFamily: GoogleFonts.poppins().fontFamily,
-        ),
-      ),
-      textTheme: GoogleFonts.poppinsTextTheme(),
-      scaffoldBackgroundColor: AppColors.neutralLighter,
-      colorSchemeSeed: AppColors.primary,
-    );
-  }
-}
 
 final class AppColors {
   static const Color primary = Color(0xFF3366CC);

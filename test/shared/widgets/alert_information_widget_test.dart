@@ -7,18 +7,19 @@ void main() {
   group('AlertInformationWidget', () {
     final String assetPathImage = 'assets/images/error.png';
     final String title = 'Something went wrong!';
-    final Widget alertInformationWidget = MaterialApp(
-      home: Scaffold(
-        body: AlertInformationWidget(
-          assetPathImage: assetPathImage,
-          title: title,
-        ),
-      ),
-    );
+
+    Widget getWidget() => MaterialApp(
+          home: Scaffold(
+            body: AlertInformationWidget(
+              assetPathImage: assetPathImage,
+              title: title,
+            ),
+          ),
+        );
 
     testWidgets('Should display the image with the correct path',
         (WidgetTester tester) async {
-      await tester.pumpWidget(alertInformationWidget);
+      await tester.pumpWidget(getWidget());
 
       final finder = find.byType(Image);
       expect(finder, findsOneWidget);
@@ -30,7 +31,7 @@ void main() {
 
     testWidgets('Should display the title with the correct style',
         (WidgetTester tester) async {
-      await tester.pumpWidget(alertInformationWidget);
+      await tester.pumpWidget(getWidget());
 
       final finder = find.byType(Text);
       expect(finder, findsOneWidget);
@@ -46,7 +47,7 @@ void main() {
 
     testWidgets('Should display the widget centered on the screen',
         (WidgetTester tester) async {
-      await tester.pumpWidget(alertInformationWidget);
+      await tester.pumpWidget(getWidget());
 
       final finder = find.byType(Column);
       expect(finder, findsOneWidget);

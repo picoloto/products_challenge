@@ -14,13 +14,7 @@ import 'package:shared_preferences_platform_interface/shared_preferences_async_p
 import '../../mocks/product_mock.dart';
 import 'favorite_widget_test.mocks.dart';
 
-@GenerateNiceMocks([
-  MockSpec<ProductsLocalStore>(),
-  MockSpec<ProductsLocalState>(),
-  MockSpec<ErrorProductsLocalState>(),
-  MockSpec<LoadingProductsLocalState>(),
-  MockSpec<SuccessProductsLocalState>(),
-])
+@GenerateNiceMocks([MockSpec<ProductsLocalStore>()])
 void main() {
   late MockProductsLocalStore mockProductsLocalStore;
   final Product testProduct = ProductMock.product1;
@@ -42,21 +36,19 @@ void main() {
         .thenReturn(false);
   });
 
-  Widget createWidgetUnderTest() {
-    return MaterialApp(
-      home: Scaffold(
-        body: FavoriteWidget(
-          product: testProduct,
-          productsLocalStore: mockProductsLocalStore,
+  Widget getWidget() => MaterialApp(
+        home: Scaffold(
+          body: FavoriteWidget(
+            product: testProduct,
+            productsLocalStore: mockProductsLocalStore,
+          ),
         ),
-      ),
-    );
-  }
+      );
 
   group('FavoriteWidget', () {
     testWidgets('Should renders favorite icon correctly when not favorited',
         (WidgetTester tester) async {
-      await tester.pumpWidget(createWidgetUnderTest());
+      await tester.pumpWidget(getWidget());
 
       expect(find.byIcon(Icons.favorite_border), findsOneWidget);
     });
@@ -67,14 +59,14 @@ void main() {
           .when(mockProductsLocalStore.isFavorite(testProduct))
           .thenReturn(true);
 
-      await tester.pumpWidget(createWidgetUnderTest());
+      await tester.pumpWidget(getWidget());
 
       expect(find.byIcon(Icons.favorite), findsOneWidget);
     });
 
     testWidgets('Should calls addProductFavorite when tapped',
         (WidgetTester tester) async {
-      await tester.pumpWidget(createWidgetUnderTest());
+      await tester.pumpWidget(getWidget());
 
       await tester.tap(find.byType(IconButton));
       await tester.pump();
@@ -89,7 +81,7 @@ void main() {
       final state = Observable(SuccessProductsLocalState(ProductMock.products));
       mockito.when(mockProductsLocalStore.state).thenAnswer((_) => state.value);
 
-      await tester.pumpWidget(createWidgetUnderTest());
+      await tester.pumpWidget(getWidget());
 
       expect(find.byIcon(Icons.favorite_border), findsOneWidget);
 

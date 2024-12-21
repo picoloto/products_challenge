@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_image_test_utils/image_test/image_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:go_router/go_router.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:products_challenge/model/product/product_model.dart';
@@ -17,6 +16,7 @@ import 'package:products_challenge/view_model/products_local/products_local_stor
 import 'package:shared_preferences_platform_interface/in_memory_shared_preferences_async.dart';
 import 'package:shared_preferences_platform_interface/shared_preferences_async_platform_interface.dart';
 
+import '../../mocks/go_router_mock.dart';
 import '../../mocks/product_mock.dart';
 import 'product_details_view_test.mocks.dart';
 
@@ -28,6 +28,18 @@ void main() {
   late MockProductDetailsStore mockProductDetailsStore;
   late MockProductsLocalStore mockProductsLocalStore;
   final Product product = ProductMock.product1;
+
+  Widget getWidget() => MaterialApp(
+        home: ProductDetailsView(productId: product.id),
+      );
+
+  Widget getErrorRouterWidget() => MaterialApp.router(
+        routerConfig: GoRouterMock.getRouter(
+          getWidget(),
+          Text('Error View'),
+          Routes.errorView,
+        ),
+      );
 
   setUpAll(() {
     WidgetsFlutterBinding.ensureInitialized();
@@ -55,44 +67,17 @@ void main() {
       when(mockProductDetailsStore.state)
           .thenReturn(LoadingProductDetailsState());
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: ProductDetailsView(productId: product.id),
-        ),
-      );
+      await tester.pumpWidget(getWidget());
 
       expect(find.byType(LoadingWidget), findsOneWidget);
     });
 
     testWidgets('Should navigate to error view when there is an error',
         (WidgetTester tester) async {
-      final router = GoRouter(
-        initialLocation: '/',
-        routes: [
-          GoRoute(
-            path: '/',
-            builder: (context, state) => ProductDetailsView(
-              productId: product.id,
-            ),
-          ),
-          GoRoute(
-            path: Routes.errorView,
-            builder: (context, state) => Scaffold(
-              appBar: AppBar(title: Text('error')),
-              body: Center(child: Text('Error View')),
-            ),
-          ),
-        ],
-      );
-
       when(mockProductDetailsStore.state).thenAnswer(
           (_) => ErrorProductDetailsState(Exception('Error fetching data')));
 
-      await tester.pumpWidget(
-        MaterialApp.router(
-          routerConfig: router,
-        ),
-      );
+      await tester.pumpWidget(getErrorRouterWidget());
 
       await tester.pumpAndSettle();
       expect(find.text('Error View'), findsOneWidget);
@@ -105,11 +90,7 @@ void main() {
         when(mockProductDetailsStore.state)
             .thenReturn(SuccessProductDetailsState(product));
 
-        await tester.pumpWidget(
-          MaterialApp(
-            home: ProductDetailsView(productId: product.id),
-          ),
-        );
+        await tester.pumpWidget(getWidget());
 
         expect(find.text(product.title), findsOneWidget);
         expect(find.text(product.description), findsOneWidget);
@@ -127,11 +108,7 @@ void main() {
         when(mockProductDetailsStore.state)
             .thenReturn(SuccessProductDetailsState(product));
 
-        await tester.pumpWidget(
-          MaterialApp(
-            home: ProductDetailsView(productId: product.id),
-          ),
-        );
+        await tester.pumpWidget(getWidget());
 
         expect(find.byType(FavoriteWidget), findsOneWidget);
       });
@@ -143,11 +120,7 @@ void main() {
         when(mockProductDetailsStore.state)
             .thenReturn(SuccessProductDetailsState(product));
 
-        await tester.pumpWidget(
-          MaterialApp(
-            home: ProductDetailsView(productId: product.id),
-          ),
-        );
+        await tester.pumpWidget(getWidget());
 
         expect(find.text('\$109.95'), findsOneWidget);
         expect(find.text('Category Product 1'), findsOneWidget);

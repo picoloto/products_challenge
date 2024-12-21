@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_image_test_utils/image_test/image_test.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:go_router/go_router.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:products_challenge/model/product/product_model.dart';
@@ -18,6 +17,7 @@ import 'package:products_challenge/view_model/products_local/products_local_stor
 import 'package:shared_preferences_platform_interface/in_memory_shared_preferences_async.dart';
 import 'package:shared_preferences_platform_interface/shared_preferences_async_platform_interface.dart';
 
+import '../../mocks/go_router_mock.dart';
 import '../../mocks/product_mock.dart';
 import 'products_view_test.mocks.dart';
 
@@ -29,6 +29,26 @@ void main() {
   late MockProductsLocalStore mockProductsLocalStore;
   late ProductsStore mockProductsStore;
   final Product product = ProductMock.product1;
+
+  Widget getWidget() => MaterialApp(
+        home: ProductsView(),
+      );
+
+  Widget getErrorRouterWidget() => MaterialApp.router(
+        routerConfig: GoRouterMock.getRouter(
+          getWidget(),
+          Text('Error View'),
+          Routes.errorView,
+        ),
+      );
+
+  Widget getDetailsRouterWidget() => MaterialApp.router(
+        routerConfig: GoRouterMock.getRouter(
+          getWidget(),
+          Text('Product Details View'),
+          '${Routes.productDetailsView}/${product.id}',
+        ),
+      );
 
   setUpAll(() {
     WidgetsFlutterBinding.ensureInitialized();
@@ -54,11 +74,7 @@ void main() {
         (WidgetTester tester) async {
       when(mockProductsStore.state).thenReturn(LoadingProductsState());
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: ProductsView(),
-        ),
-      );
+      await tester.pumpWidget(getWidget());
 
       expect(find.byType(LoadingWidget), findsOneWidget);
     });
@@ -67,11 +83,7 @@ void main() {
         (WidgetTester tester) async {
       when(mockProductsStore.state).thenReturn(EmptyProductsState());
 
-      await tester.pumpWidget(
-        MaterialApp(
-          home: ProductsView(),
-        ),
-      );
+      await tester.pumpWidget(getWidget());
 
       expect(find.byType(AlertInformationWidget), findsOneWidget);
       expect(find.text('The list is empty'), findsOneWidget);
@@ -79,31 +91,10 @@ void main() {
 
     testWidgets('Should navigate to error view when there is an error',
         (WidgetTester tester) async {
-      final router = GoRouter(
-        initialLocation: '/',
-        routes: [
-          GoRoute(
-            path: '/',
-            builder: (context, state) => ProductsView(),
-          ),
-          GoRoute(
-            path: Routes.errorView,
-            builder: (context, state) => Scaffold(
-              appBar: AppBar(title: Text('error')),
-              body: Center(child: Text('Error View')),
-            ),
-          ),
-        ],
-      );
-
       when(mockProductsStore.state).thenAnswer(
           (_) => ErrorProductsState(Exception('Error fetching data')));
 
-      await tester.pumpWidget(
-        MaterialApp.router(
-          routerConfig: router,
-        ),
-      );
+      await tester.pumpWidget(getErrorRouterWidget());
 
       await tester.pumpAndSettle();
       expect(find.text('Error View'), findsOneWidget);
@@ -115,11 +106,7 @@ void main() {
         when(mockProductsStore.state)
             .thenReturn(SuccessProductsState([product]));
 
-        await tester.pumpWidget(
-          MaterialApp(
-            home: ProductsView(),
-          ),
-        );
+        await tester.pumpWidget(getWidget());
 
         expect(find.byType(ProductTileWidget), findsOneWidget);
         expect(find.text(product.title), findsOneWidget);
@@ -134,11 +121,7 @@ void main() {
         when(mockProductsStore.state)
             .thenReturn(SuccessProductsState([product]));
 
-        await tester.pumpWidget(
-          MaterialApp(
-            home: ProductsView(),
-          ),
-        );
+        await tester.pumpWidget(getWidget());
 
         expect(find.byType(FavoriteWidget), findsOneWidget);
       });
@@ -150,11 +133,7 @@ void main() {
         when(mockProductsStore.state)
             .thenReturn(SuccessProductsState([product]));
 
-        await tester.pumpWidget(
-          MaterialApp(
-            home: ProductsView(),
-          ),
-        );
+        await tester.pumpWidget(getWidget());
 
         await tester.enterText(find.byType(TextField), product.title);
         await tester.pump();
@@ -165,37 +144,16 @@ void main() {
 
     testWidgets('Should navigate to product details when a product is tapped',
         (WidgetTester tester) async {
-      final router = GoRouter(
-        initialLocation: '/',
-        routes: [
-          GoRoute(
-            path: '/',
-            builder: (context, state) => ProductsView(),
-          ),
-          GoRoute(
-            path: '${Routes.productDetailsView}/${product.id}',
-            builder: (context, state) => Scaffold(
-              appBar: AppBar(title: Text('Product Details')),
-              body: Center(child: Text('Product Details View')),
-            ),
-          ),
-        ],
-      );
-
       provideMockedNetworkImages(() async {
         when(mockProductsStore.state)
             .thenReturn(SuccessProductsState([product]));
 
-        await tester.pumpWidget(
-          MaterialApp.router(
-            routerConfig: router,
-          ),
-        );
+        await tester.pumpWidget(getDetailsRouterWidget());
 
         await tester.tap(find.byType(ProductTileWidget));
         await tester.pumpAndSettle();
 
-        expect(find.text('Product Details'), findsOneWidget);
+        expect(find.text('Product Details View'), findsOneWidget);
       });
     });
   });

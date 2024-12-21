@@ -1,3 +1,3 @@
-final class EnvironmentDev {
-  static const restApiUrl = 'https://fakestoreapi.com';
+final class Environment {
+  static const restApiUrlDev = 'https://fakestoreapi.com';
 }

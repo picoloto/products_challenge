@@ -17,25 +17,25 @@ void main() {
   group('ProductTileWidget', () {
     final product = ProductMock.product1;
 
-    final Widget simpleProductTileWithoutFavoriteWidget = MaterialApp(
-      home: Scaffold(
-        body: ProductTileWidget(product: product),
-      ),
-    );
+    Widget getWidget() => MaterialApp(
+          home: Scaffold(
+            body: ProductTileWidget(product: product),
+          ),
+        );
 
-    final Widget productTileWidgetWithFavoriteWidget = MaterialApp(
-      home: Scaffold(
-        body: ProductTileWidget(
-          product: product,
-          favoriteWidget: Icon(Icons.favorite),
-        ),
-      ),
-    );
+    Widget getWidgetWithFavorite() => MaterialApp(
+          home: Scaffold(
+            body: ProductTileWidget(
+              product: product,
+              favoriteWidget: Icon(Icons.favorite),
+            ),
+          ),
+        );
 
     testWidgets('Should display the correct product image',
         (WidgetTester tester) async {
       provideMockedNetworkImages(() async {
-        await tester.pumpWidget(simpleProductTileWithoutFavoriteWidget);
+        await tester.pumpWidget(getWidget());
 
         final finder = find.byType(ImageNetworkWidget);
         expect(finder, findsOneWidget);
@@ -100,7 +100,7 @@ void main() {
     testWidgets('Should display favoriteWidget widget if passed',
         (WidgetTester tester) async {
       provideMockedNetworkImages(() async {
-        await tester.pumpWidget(productTileWidgetWithFavoriteWidget);
+        await tester.pumpWidget(getWidgetWithFavorite());
 
         final finder = find.byIcon(Icons.favorite);
         expect(finder, findsOneWidget);
@@ -110,7 +110,7 @@ void main() {
     testWidgets('Should not display favoriteWidget widget if not passed',
         (WidgetTester tester) async {
       provideMockedNetworkImages(() async {
-        await tester.pumpWidget(simpleProductTileWithoutFavoriteWidget);
+        await tester.pumpWidget(getWidget());
 
         final favoriteFinder = find.byIcon(Icons.favorite);
         expect(favoriteFinder, findsNothing);
@@ -120,7 +120,7 @@ void main() {
     testWidgets('Should display the layout with the correct spacing',
         (WidgetTester tester) async {
       provideMockedNetworkImages(() async {
-        await tester.pumpWidget(simpleProductTileWithoutFavoriteWidget);
+        await tester.pumpWidget(getWidget());
 
         final paddingFinder = find.byType(Padding);
         expect(paddingFinder, findsOneWidget);

@@ -14,19 +14,19 @@ import 'product_service_test.mocks.dart';
 void main() {
   group('ProductService', () {
     late ProductService productService;
-    late MockRestService restService;
+    late MockRestService mockRestService;
     final path = 'products';
 
     setUpAll(() {
       WidgetsFlutterBinding.ensureInitialized();
       GetItLocator.setup();
       productService = ProductService();
-      restService = MockRestService();
-      productService.restService = restService;
+      mockRestService = MockRestService();
+      productService.restService = mockRestService;
     });
 
     test('findAll should return a list of products', () async {
-      when(restService.fetchData<List<Product>>(
+      when(mockRestService.fetchData<List<Product>>(
         path,
         any,
       )).thenAnswer((_) async => ProductMock.products);
@@ -40,7 +40,7 @@ void main() {
     });
 
     test('findAll throws exception on error', () async {
-      when(restService.fetchData<List<Product>>(
+      when(mockRestService.fetchData<List<Product>>(
         path,
         any,
       )).thenThrow(Exception('Network error'));
@@ -50,7 +50,7 @@ void main() {
 
     test('findById should return a product', () async {
       final int id = 1;
-      when(restService.fetchData<Product>(
+      when(mockRestService.fetchData<Product>(
         '$path/$id',
         any,
       )).thenAnswer((_) async => ProductMock.product1);
@@ -64,7 +64,7 @@ void main() {
 
     test('findById throws exception on error', () async {
       final int id = 1;
-      when(restService.fetchData<Product>(
+      when(mockRestService.fetchData<Product>(
         '$path/$id',
         any,
       )).thenThrow(Exception('Network error'));

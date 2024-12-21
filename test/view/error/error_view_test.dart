@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:go_router/go_router.dart';
 import 'package:products_challenge/routes/routes.dart';
 import 'package:products_challenge/shared/utils/get_it_locator.dart';
 import 'package:products_challenge/shared/widgets/alert_information_widget.dart';
@@ -8,11 +7,21 @@ import 'package:products_challenge/view/error/error_view.dart';
 import 'package:shared_preferences_platform_interface/in_memory_shared_preferences_async.dart';
 import 'package:shared_preferences_platform_interface/shared_preferences_async_platform_interface.dart';
 
+import '../../mocks/go_router_mock.dart';
+
 void main() {
   group('ErrorView', () {
-    final Widget errorView = MaterialApp(
-      home: ErrorView(),
-    );
+    Widget getWidget() => MaterialApp(
+          home: ErrorView(),
+        );
+
+    Widget getProductsRouterWidget() => MaterialApp.router(
+          routerConfig: GoRouterMock.getRouter(
+            getWidget(),
+            Text('Products View'),
+            Routes.productsView,
+          ),
+        );
 
     setUpAll(() {
       WidgetsFlutterBinding.ensureInitialized();
@@ -23,7 +32,7 @@ void main() {
 
     testWidgets('Should display alert widget with image and title',
         (tester) async {
-      await tester.pumpWidget(errorView);
+      await tester.pumpWidget(getWidget());
 
       expect(find.byType(AlertInformationWidget), findsOneWidget);
       expect(find.text('Something went wrong!'), findsOneWidget);
@@ -35,28 +44,7 @@ void main() {
 
     testWidgets('Should "Go Home" button navigates to the products screen',
         (tester) async {
-      final router = GoRouter(
-        initialLocation: '/',
-        routes: [
-          GoRoute(
-            path: '/',
-            builder: (context, state) => const ErrorView(),
-          ),
-          GoRoute(
-            path: Routes.productsView,
-            builder: (context, state) => Scaffold(
-              appBar: AppBar(title: Text('Products')),
-              body: Center(child: Text('Products View')),
-            ),
-          ),
-        ],
-      );
-
-      await tester.pumpWidget(
-        MaterialApp.router(
-          routerConfig: router,
-        ),
-      );
+      await tester.pumpWidget(getProductsRouterWidget());
 
       final goHomeButton = find.text('Go Home');
       expect(goHomeButton, findsOneWidget);

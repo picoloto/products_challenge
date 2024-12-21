@@ -12,7 +12,7 @@ abstract interface class RestServiceInterface {
 }
 
 class RestService {
-  String baseUrl = EnvironmentDev.restApiUrl;
+  String baseUrl = Environment.restApiUrlDev;
   Dio dio = getIt.get<Dio>();
 
   Future<T> fetchData<T>(

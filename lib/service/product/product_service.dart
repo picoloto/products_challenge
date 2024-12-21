@@ -3,9 +3,8 @@ import 'package:products_challenge/service/rest_service.dart';
 import 'package:products_challenge/shared/utils/get_it_locator.dart';
 
 class ProductService implements RestServiceInterface {
-  final String path = 'products';
-
   RestService restService = getIt.get<RestService>();
+  final String path = 'products';
 
   @override
   Future<List<Product>> findAll() async {

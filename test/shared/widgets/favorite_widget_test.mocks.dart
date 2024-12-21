@@ -62,16 +62,6 @@ class _FakeReactiveContext_2 extends _i1.SmartFake
         );
 }
 
-class _FakeException_3 extends _i1.SmartFake implements Exception {
-  _FakeException_3(
-    Object parent,
-    Invocation parentInvocation,
-  ) : super(
-          parent,
-          parentInvocation,
-        );
-}
-
 /// A class which mocks [ProductsLocalStore].
 ///
 /// See the documentation for Mockito's code generation for more information.
@@ -180,48 +170,4 @@ class MockProductsLocalStore extends _i1.Mock
         returnValue: false,
         returnValueForMissingStub: false,
       ) as bool);
-}
-
-/// A class which mocks [ProductsLocalState].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockProductsLocalState extends _i1.Mock
-    implements _i3.ProductsLocalState {}
-
-/// A class which mocks [ErrorProductsLocalState].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockErrorProductsLocalState extends _i1.Mock
-    implements _i3.ErrorProductsLocalState {
-  @override
-  Exception get exception => (super.noSuchMethod(
-        Invocation.getter(#exception),
-        returnValue: _FakeException_3(
-          this,
-          Invocation.getter(#exception),
-        ),
-        returnValueForMissingStub: _FakeException_3(
-          this,
-          Invocation.getter(#exception),
-        ),
-      ) as Exception);
-}
-
-/// A class which mocks [LoadingProductsLocalState].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockLoadingProductsLocalState extends _i1.Mock
-    implements _i3.LoadingProductsLocalState {}
-
-/// A class which mocks [SuccessProductsLocalState].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockSuccessProductsLocalState extends _i1.Mock
-    implements _i3.SuccessProductsLocalState {
-  @override
-  List<_i6.Product> get products => (super.noSuchMethod(
-        Invocation.getter(#products),
-        returnValue: <_i6.Product>[],
-        returnValueForMissingStub: <_i6.Product>[],
-      ) as List<_i6.Product>);
 }

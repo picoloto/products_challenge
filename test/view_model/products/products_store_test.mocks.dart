@@ -50,19 +50,6 @@ class _FakeProduct_1 extends _i1.SmartFake implements _i3.Product {
 /// See the documentation for Mockito's code generation for more information.
 class MockProductService extends _i1.Mock implements _i4.ProductService {
   @override
-  String get path => (super.noSuchMethod(
-        Invocation.getter(#path),
-        returnValue: _i5.dummyValue<String>(
-          this,
-          Invocation.getter(#path),
-        ),
-        returnValueForMissingStub: _i5.dummyValue<String>(
-          this,
-          Invocation.getter(#path),
-        ),
-      ) as String);
-
-  @override
   _i2.RestService get restService => (super.noSuchMethod(
         Invocation.getter(#restService),
         returnValue: _FakeRestService_0(
@@ -83,6 +70,19 @@ class MockProductService extends _i1.Mock implements _i4.ProductService {
         ),
         returnValueForMissingStub: null,
       );
+
+  @override
+  String get path => (super.noSuchMethod(
+        Invocation.getter(#path),
+        returnValue: _i5.dummyValue<String>(
+          this,
+          Invocation.getter(#path),
+        ),
+        returnValueForMissingStub: _i5.dummyValue<String>(
+          this,
+          Invocation.getter(#path),
+        ),
+      ) as String);
 
   @override
   _i6.Future<List<_i3.Product>> findAll() => (super.noSuchMethod(

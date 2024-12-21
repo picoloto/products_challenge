@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart' as mockito;
+import 'package:mockito/mockito.dart';
 import 'package:products_challenge/service/product/product_service.dart';
 import 'package:products_challenge/shared/utils/get_it_locator.dart';
 import 'package:products_challenge/view_model/products/products_state.dart';
@@ -30,7 +30,7 @@ void main() {
 
     test('Should change to EmptyProductsState if no products are found',
         () async {
-      mockito.when(mockProductService.findAll()).thenAnswer((_) async => []);
+      when(mockProductService.findAll()).thenAnswer((_) async => []);
 
       await productsStore.findProducts();
 
@@ -40,8 +40,7 @@ void main() {
     test(
         'Should change to ErrorProductsState if an exception occurs when fetching products',
         () async {
-      mockito
-          .when(mockProductService.findAll())
+      when(mockProductService.findAll())
           .thenThrow(Exception('Error loading products'));
 
       await productsStore.findProducts();
@@ -54,9 +53,9 @@ void main() {
 
     test('Should debounce correctly when searching for products by title',
         () async {
-      mockito.when(mockProductService.findAll()).thenAnswer(
-            (_) async => ProductMock.products,
-          );
+      when(mockProductService.findAll()).thenAnswer(
+        (_) async => ProductMock.products,
+      );
 
       await productsStore.findProducts();
 
@@ -73,9 +72,9 @@ void main() {
     test(
         'Should change to EmptyProductsState if no products are found when searching by title',
         () async {
-      mockito.when(mockProductService.findAll()).thenAnswer(
-            (_) async => [ProductMock.product1],
-          );
+      when(mockProductService.findAll()).thenAnswer(
+        (_) async => [ProductMock.product1],
+      );
 
       await productsStore.findProducts();
       await productsStore.findProductsByTitle('Nonexistent');
@@ -87,9 +86,9 @@ void main() {
     test(
         'Should ensure debounce is canceled when calling findProductsByTitle quickly',
         () async {
-      mockito.when(mockProductService.findAll()).thenAnswer(
-            (_) async => ProductMock.products,
-          );
+      when(mockProductService.findAll()).thenAnswer(
+        (_) async => ProductMock.products,
+      );
 
       await productsStore.findProducts();
 

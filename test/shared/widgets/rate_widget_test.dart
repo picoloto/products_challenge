@@ -10,18 +10,18 @@ void main() {
     final double rate = RatingMock.rating1.rate;
     final int reviewCount = RatingMock.rating1.count;
 
-    final Widget iconTextWidget = MaterialApp(
-      home: Scaffold(
-        body: RateWidget(
-          rate: rate,
-          reviewCount: reviewCount,
-        ),
-      ),
-    );
+    Widget getWidget() => MaterialApp(
+          home: Scaffold(
+            body: RateWidget(
+              rate: rate,
+              reviewCount: reviewCount,
+            ),
+          ),
+        );
 
     testWidgets('Should display the icon with the Icons.star',
         (WidgetTester tester) async {
-      await tester.pumpWidget(iconTextWidget);
+      await tester.pumpWidget(getWidget());
 
       final finder = find.byType(Icon);
       expect(finder, findsOneWidget);
@@ -33,7 +33,7 @@ void main() {
 
     testWidgets('Should display the icon with the correct style',
         (WidgetTester tester) async {
-      await tester.pumpWidget(iconTextWidget);
+      await tester.pumpWidget(getWidget());
 
       final finder = find.byType(Icon);
       expect(finder, findsOneWidget);
@@ -45,7 +45,7 @@ void main() {
 
     testWidgets('Should display the text with the correct style',
         (WidgetTester tester) async {
-      await tester.pumpWidget(iconTextWidget);
+      await tester.pumpWidget(getWidget());
 
       final finder = find.byType(Text);
       expect(finder, findsOneWidget);
