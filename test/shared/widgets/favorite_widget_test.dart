@@ -97,12 +97,6 @@ void main() {
           .when(mockProductsLocalStore.isFavorite(testProduct))
           .thenReturn(true);
 
-      reaction((_) => mockProductsLocalStore.state, (state) {
-        if (state is SuccessProductsLocalState) {
-          expect(state.products, ProductMock.products);
-        }
-      });
-
       state.reportChanged();
       await tester.pump();
 

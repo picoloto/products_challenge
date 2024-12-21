@@ -1,6 +1,6 @@
 import 'package:products_challenge/model/product/product_model.dart';
 
-sealed class ProductsState {}
+abstract class ProductsState {}
 
 class EmptyProductsState extends ProductsState {}
 

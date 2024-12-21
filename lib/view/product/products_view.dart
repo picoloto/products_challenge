@@ -13,9 +13,6 @@ import 'package:products_challenge/view_model/products/products_state.dart';
 import 'package:products_challenge/view_model/products/products_store.dart';
 import 'package:products_challenge/view_model/products_local/products_local_store.dart';
 
-final productsStore = getIt.get<ProductsStore>();
-final productsLocalStore = getIt.get<ProductsLocalStore>();
-
 class ProductsView extends StatefulWidget {
   const ProductsView({super.key});
 
@@ -24,6 +21,9 @@ class ProductsView extends StatefulWidget {
 }
 
 class _ProductsViewState extends State<ProductsView> {
+  final productsStore = getIt.get<ProductsStore>();
+  final productsLocalStore = getIt.get<ProductsLocalStore>();
+
   @override
   void initState() {
     productsStore.findProducts();
@@ -61,7 +61,9 @@ class _ProductsViewState extends State<ProductsView> {
           child: Column(
             spacing: 18,
             children: [
-              _SearchWidget(),
+              _SearchWidget(
+                productsStore: productsStore,
+              ),
               Expanded(
                 child: Observer(
                   builder: (_) {
@@ -79,6 +81,7 @@ class _ProductsViewState extends State<ProductsView> {
                     } else if (state is SuccessProductsState) {
                       return _SuccessWidget(
                         successProductsState: state,
+                        productsLocalStore: productsLocalStore,
                       );
                     }
 
@@ -95,7 +98,9 @@ class _ProductsViewState extends State<ProductsView> {
 }
 
 class _SearchWidget extends StatelessWidget {
-  const _SearchWidget();
+  final ProductsStore productsStore;
+
+  const _SearchWidget({required this.productsStore});
 
   @override
   Widget build(BuildContext context) {
@@ -123,8 +128,10 @@ class _SearchWidget extends StatelessWidget {
 
 class _SuccessWidget extends StatelessWidget {
   final SuccessProductsState successProductsState;
+  final ProductsLocalStore productsLocalStore;
 
-  const _SuccessWidget({required this.successProductsState});
+  const _SuccessWidget(
+      {required this.successProductsState, required this.productsLocalStore});
 
   @override
   Widget build(BuildContext context) {

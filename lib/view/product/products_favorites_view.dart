@@ -28,7 +28,7 @@ class ProductsFavoritesView extends StatelessWidget {
       appBar: AppBar(
         title: Text('Favorites'),
       ),
-      body: Observer(builder: (context) {
+      body: Observer(builder: (_) {
         final state = productsLocalStore.state;
 
         if (state is ErrorProductsLocalState) {
