@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:products_challenge/model/product/product_model.dart';
 import 'package:products_challenge/shared/theme/custom_theme.dart';
-import 'package:products_challenge/shared/utils/get_it_locator.dart';
 import 'package:products_challenge/view_model/products_local/products_local_state.dart';
 import 'package:products_challenge/view_model/products_local/products_local_store.dart';
 
 class FavoriteWidget extends StatelessWidget {
-  final productsLocalStore = getIt.get<ProductsLocalStore>();
+  final ProductsLocalStore productsLocalStore;
   final Product product;
   final MaterialTapTargetSize materialTapTargetSize;
 
-  FavoriteWidget({
+  const FavoriteWidget({
     super.key,
+    required this.productsLocalStore,
     required this.product,
     this.materialTapTargetSize = MaterialTapTargetSize.shrinkWrap,
   });

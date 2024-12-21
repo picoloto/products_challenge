@@ -1,6 +1,6 @@
 import 'package:products_challenge/model/product/product_model.dart';
 
-sealed class ProductsLocalState {}
+abstract class ProductsLocalState {}
 
 class LoadingProductsLocalState extends ProductsLocalState {}
 

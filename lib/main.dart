@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'Products Challenge',
-      theme: CustomTheme.themeData(context),
+      theme: CustomTheme.themeData(),
       routerConfig: router,
     );
   }

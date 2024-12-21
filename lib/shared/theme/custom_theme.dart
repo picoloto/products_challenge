@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 final class CustomTheme {
-  static ThemeData themeData(BuildContext context) {
+  static ThemeData themeData() {
     return ThemeData(
       useMaterial3: true,
       fontFamily: GoogleFonts.poppins().fontFamily,
@@ -12,8 +12,10 @@ final class CustomTheme {
           fontWeight: FontWeight.w600,
           color: AppColors.neutral,
           fontSize: 20,
+          fontFamily: GoogleFonts.poppins().fontFamily,
         ),
       ),
+      textTheme: GoogleFonts.poppinsTextTheme(),
       scaffoldBackgroundColor: AppColors.neutralLighter,
       colorSchemeSeed: AppColors.primary,
     );

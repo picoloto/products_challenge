@@ -45,6 +45,7 @@ class ProductDetailsView extends StatelessWidget {
                   return FavoriteWidget(
                     product: state.product,
                     materialTapTargetSize: MaterialTapTargetSize.padded,
+                    productsLocalStore: productsLocalStore,
                   );
                 }
 
@@ -105,9 +106,11 @@ class _SuccessWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                RateWidget(
-                  rate: product.rating.rate,
-                  reviewCount: product.rating.count,
+                Expanded(
+                  child: RateWidget(
+                    rate: product.rating.rate,
+                    reviewCount: product.rating.count,
+                  ),
                 ),
                 Text(
                   '\$${product.price.toStringAsFixed(2)}',

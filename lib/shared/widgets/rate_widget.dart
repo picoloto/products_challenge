@@ -17,27 +17,25 @@ class RateWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Row(
-        spacing: 9,
-        children: [
-          Icon(
-            Icons.star,
-            color: AppColors.attentionLighter,
-            size: 22,
-          ),
-          Expanded(
-            child: Text(
-              '${rate.toStringAsFixed(1)} (${reviewCount.toString()} ${_getReviewWord()})',
-              style: TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 14,
-                color: AppColors.neutral65,
-              ),
+    return Row(
+      spacing: 9,
+      children: [
+        Icon(
+          Icons.star,
+          color: AppColors.attentionLighter,
+          size: 22,
+        ),
+        Expanded(
+          child: Text(
+            '${rate.toStringAsFixed(1)} (${reviewCount.toString()} ${_getReviewWord()})',
+            style: TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 14,
+              color: AppColors.neutral65,
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

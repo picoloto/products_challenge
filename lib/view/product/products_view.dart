@@ -137,7 +137,10 @@ class _SuccessWidget extends StatelessWidget {
               .push('${Routes.productDetailsView}/${product.id}'),
           child: ProductTileWidget(
             product: product,
-            favoriteWidget: FavoriteWidget(product: product),
+            favoriteWidget: FavoriteWidget(
+              product: product,
+              productsLocalStore: productsLocalStore,
+            ),
           ),
         );
       },
