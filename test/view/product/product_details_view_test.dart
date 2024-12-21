@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:products_challenge/model/product/product_model.dart';
-import 'package:products_challenge/routes/routes.dart';
+import 'package:products_challenge/route/routes.dart';
 import 'package:products_challenge/shared/utils/get_it_locator.dart';
 import 'package:products_challenge/shared/widgets/favorite_widget.dart';
 import 'package:products_challenge/shared/widgets/loading_widget.dart';

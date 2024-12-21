@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:go_router/go_router.dart';
-import 'package:products_challenge/routes/routes.dart';
+import 'package:products_challenge/route/routes.dart';
 import 'package:products_challenge/shared/utils/get_it_locator.dart';
 import 'package:products_challenge/shared/widgets/alert_information_widget.dart';
 import 'package:products_challenge/shared/widgets/loading_widget.dart';

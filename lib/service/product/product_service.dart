@@ -1,5 +1,5 @@
 import 'package:products_challenge/model/product/product_model.dart';
-import 'package:products_challenge/service/rest_service.dart';
+import 'package:products_challenge/service/rest/rest_service.dart';
 import 'package:products_challenge/shared/utils/get_it_locator.dart';
 
 class ProductService implements RestServiceInterface {

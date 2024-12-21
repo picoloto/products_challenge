@@ -1,5 +1,5 @@
 import 'package:go_router/go_router.dart';
-import 'package:products_challenge/routes/routes.dart';
+import 'package:products_challenge/route/routes.dart';
 import 'package:products_challenge/view/error/error_view.dart';
 import 'package:products_challenge/view/product/product_details_view.dart';
 import 'package:products_challenge/view/product/products_favorites_view.dart';

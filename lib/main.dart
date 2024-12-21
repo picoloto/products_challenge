@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:products_challenge/routes/router.dart';
+import 'package:products_challenge/route/router.dart';
 import 'package:products_challenge/shared/theme/custom_theme.dart';
 import 'package:products_challenge/shared/utils/get_it_locator.dart';
 
